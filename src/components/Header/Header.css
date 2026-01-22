@@ -1,0 +1,65 @@
+
+.Header {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    column-gap: 510px;
+    box-shadow: 0 2px 22.5px 0 #1C1D1F0D;
+    background-color: #FFFFFF;
+
+}
+
+.Header__logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-left: 20px;
+    cursor: pointer;
+
+}
+.Header__name {
+    font-weight: 600;
+    font-size: 16px;
+    font-family: SansSerif, sans-serif;
+
+
+}
+
+.Header_menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+    cursor: pointer;
+
+
+}
+
+.Header_menu-aboutMe--true , .Header_menu-aboutMe--false  {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+
+}
+
+.Header_menu-aboutMe--false{
+    opacity: 0.5;
+
+}
+
+.Header_menu-vacancy--true {
+    opacity: 0.5;
+    width: 110px;
+}
+.Header_menu-vacancy--false::after {
+    content: ' ●';
+    color: #4263EB;
+}
+.Header_menu-aboutMe--true::after {
+    content: ' ●';
+    color: #4263EB;
+}
+
+

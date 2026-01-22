@@ -1,0 +1,84 @@
+
+.VacancyFilter {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.VacancyFilter__Skills--text {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.VacancyFilter__Skills--form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.VacancyFilter__Skills--input {
+    width: 217px;
+    height: 30px;
+    border-radius: 8px;
+    border: 1px solid #0F0F104D;
+    padding-left: 10px;
+}
+
+.VacancyFilter__Skills-button--true , .VacancyFilter__Skills-button--false {
+    width: 35px;
+    height: 32px;
+    border: none;
+    border-radius: 10px;
+    background: #228BE6;
+    color: white;
+    font-size: 20px;
+}
+
+.VacancyFilter__Skills-button--false {
+    opacity: 0.5;
+}
+
+.VacancyFilter__Skills {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    width: 317px;
+    height: 186px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 20px;
+    padding-top: 24px;
+    gap: 12px;
+
+}
+
+.VacancyFilter__City {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    width: 317px;
+    height: 84px;
+}
+.VacancyFilter__skillList {
+    display: flex;
+    width: 200px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+
+}
+.VacancyFilter__City select {
+    width: 269px;
+    height: 36px;
+    border-radius: 4px;
+    border-color: #0F0F104D;
+    color: #0F0F104D;
+    background-image: url("../../assets/point.svg") ;
+    background-repeat: no-repeat;
+    background-position: 15px center;
+    padding-left: 38px;
+}
+.VacancyFilter__City--select {
+    position: relative;
+    top: 25px;
+    left: 25px;
+}

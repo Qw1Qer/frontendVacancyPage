@@ -1,0 +1,108 @@
+
+.VacancyCard__header {
+    background-color: white;
+    border-radius: 8px;
+    width: 600px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-bottom: 10px;
+    margin-bottom: 16px;
+    gap: 10px
+
+}
+.VacancyCard__info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+
+}
+
+.VacancyCard__info__name {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.VacancyCard__info__experience {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.VacancyCard__info__experience--company{
+    opacity: 0.5;
+    font-size: 14px;
+}
+
+.VacancyCard__name {
+    color: #364FC7;
+    font-size: 18px;
+    font-weight: 600;
+    white-space: break-spaces;
+}
+.VacancyCard__fork {
+    font-size: 16px;
+    font-weight: 400;
+}
+.VacancyCard__buttons {
+    display: flex;
+    gap: 12px;
+}
+.VacancyCard__buttons button:first-child {
+    background-color: black;
+    border: none;
+    width: 172px;
+    height: 36px;
+    color: white;
+    border-radius: 4px;
+}
+.VacancyCard__buttons button:last-child {
+    background-color: #0F0F101A;
+    border: none;
+    width: 131px;
+    height: 36px;
+    color: black;
+    border-radius: 4px;
+}
+.VacancyCard__salaryAndExperience {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+.VacancyCard__experience {
+    font-size: 14px;
+    opacity: 0.5;
+}
+.VacancyCard__workFormat--HYBRID {
+    border-radius: 4px;
+    background-color: black;
+    width: 40px;
+    height: 15px;
+    padding-left: 3px;
+    color: white;
+    font-size: 9px;
+}
+.VacancyCard__workFormat--REMOTE {
+    border-radius: 4px;
+    background-color: #4263EB;
+    width: 47px;
+    height: 15px;
+    padding-left: 2px;
+    color: white;
+    font-size: 9px;
+}
+.VacancyCard__workFormat--ON_SITE {
+    border-radius: 4px;
+    background-color: #0F0F101A;
+    width: 107px;
+    height: 15px;
+    padding-left: 2px;
+    color: Gray;
+    font-size: 9px;
+    white-space: nowrap;
+}

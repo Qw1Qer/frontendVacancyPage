@@ -1,0 +1,103 @@
+@import '@mantine/core/styles.css';
+
+
+.VacancyList {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    background-color: #F6F6F7;
+    height: 100%;
+
+
+}
+.VacancyList__cardList {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    height: 100%;
+
+}
+
+.VacancyCardList {
+    background-color: #F6F6F7;
+    height: 100%;
+}
+
+.VacancyFilter__message {
+    width: 600px;
+    text-align: center;
+    border-radius: 10px;
+    align-content: center;
+    font-size: large;
+    background-color: #FFFFFF;
+}
+
+.AboutMe {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 658px;
+    height: 143px;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    padding: 10px;
+    position: relative;
+    left: 30%;
+    top: 20px;
+}
+.AboutMe h2 {
+    margin-bottom: 10px;
+}
+
+/* Стили для пагинации */
+.mantine-Pagination-root {
+    margin-top: 10px;
+    margin-left: 320px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.Error__Script {
+    width: 707px;
+    height: 500px;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 30px;
+    left: 400px;
+    top: 60px;
+    gap: 10px;
+}
+
+.Error__Script img {
+    width: 640px;
+    height: 336px;
+    border-radius: 10px;
+}
+
+.Error__Script h1 {
+    width: 508px;
+    line-height: 130%;
+}
+
+.Error__Script div {
+    display: flex;
+    flex-direction: row;
+}
+
+.Error__Script div button {
+    border: none;
+    background-color: #4263EB;
+    border-radius: 8px;
+    color: #FFFFFF;
+    width: 135px;
+    height: 42px;
+    margin-top: 40px;
+}

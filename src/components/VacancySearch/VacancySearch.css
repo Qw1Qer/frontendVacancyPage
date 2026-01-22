@@ -1,0 +1,41 @@
+.VacancySearch {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 120px;
+}
+.VacancySearch__input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+.VacancySearch__text span {
+    font-size: 18px;
+    color: Gray;
+}
+
+
+.VacancySearch input{
+    width: 390px;
+    height: 42px;
+    border: 1px solid gray ;
+    border-radius: 8px;
+    background: #F6F6F7;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 400;
+
+}
+
+
+.VacancySearch button{
+    width: 93px;
+    height: 42px;
+    margin-left: 12px;
+    background-color: #4263EB;
+    color: white;
+    border: none;
+    border-radius: 8px;
+}
