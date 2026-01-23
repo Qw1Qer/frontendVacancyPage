@@ -9,37 +9,22 @@ import {Pagination} from "@mantine/core";
 import catGif from '../../assets/sad-cat.gif'
 
 
+
 const VacancyList = () => {
 
     const dispatch = useAppDispatch();
     const vacancies = useAppSelector(state => state.vacancy.vacancies)
-    const filteredVacancies = useAppSelector(state => state.vacancy.filteredVacancies)
     const searchMessage = useAppSelector(state => state.vacancy.searchMessage)
-    const filteredOrNot = filteredVacancies.length > 0 || searchMessage ? filteredVacancies : vacancies
     const aboutMe = useAppSelector(state => state.vacancy.aboutMe)
-    const skillFilter = useAppSelector(state => state.vacancy.filterCards)
     const currentPage = useAppSelector(state => state.vacancy.currentPage)
     const totalPage = useAppSelector(state => state.vacancy.totalPages)
     const city = useAppSelector(state => state.vacancy.city)
     const searchValue = useAppSelector(state => state.vacancy.searchValue)
     const error = useAppSelector(state => state.vacancy.error)
-
-    // фильтрация по ключевым навыкам
-    const handleSkillsFilter = () => {
-        if (skillFilter.length === 0) {
-            return filteredOrNot;
-        }
-
-        return filteredOrNot.filter((vacancy) => {
-            const requirement = vacancy.snippet?.requirement || '';
-            const requirementLower = requirement.trim().toLowerCase();
+    const loading = useAppSelector(state => state.vacancy.loading)
+    const skillArray = useAppSelector(state => state.vacancy.filterCards)
 
 
-            return skillFilter.some(skill =>
-                requirementLower.includes(skill.trim().toLowerCase())
-            );
-        });
-    };
 
     // Изменение страницы
     const handleChangePage = (page: number) => {
@@ -48,13 +33,13 @@ const VacancyList = () => {
 
     useEffect(() => {
         dispatch(fetchVacancy(currentPage))
-    },[dispatch,currentPage,city, searchValue])
+    },[dispatch,currentPage,city, searchValue,skillArray ])
 
 
     return (aboutMe ?
                 (<div className='AboutMe'>
                     <h2>Кто-то</h2>
-                    <span>Привет! Я-Frontend-разработчик. Пишу приложения на React + TypeScript + Redux Toolkit</span>
+                    <span>Привет! Я - Frontend-разработчик. Пишу приложения на React + TypeScript + Redux Toolkit.</span>
                 </div>)
                 : error
                 ? (<div className='Error__Script'>
@@ -63,7 +48,7 @@ const VacancyList = () => {
                         <button onClick={() => window.location.reload()}>На главную</button>
                         </div>
                         <p>Давайте перейдем к началу</p>
-                        <img src={catGif} />
+                        <img alt='sad-cat' src={catGif} />
                     </div>
                 )
                 :  (<>
@@ -72,7 +57,7 @@ const VacancyList = () => {
             <div className="VacancyList__cardList">
             <VacancyFilter />
                 <div className='VacancyCardList'>
-            {(handleSkillsFilter().length > 0 ? handleSkillsFilter()?.map((vacancy:any ) => (
+            {vacancies.length > 0 ? vacancies?.map((vacancy:any ) => (
                 <VacancyCard
                     key={vacancy.id}
                     items={vacancy.name}
@@ -85,11 +70,11 @@ const VacancyList = () => {
                 />
             )): <div className='VacancyFilter__message'>
                 {searchMessage}
-            </div>)}
+            </div>}
                 </div>
             </div>
         </div>
-              <Pagination  total={totalPage} value={currentPage} onChange={(event) => handleChangePage(event)} />
+                        {loading || vacancies.length === 0 ? null : <Pagination  total={totalPage} value={currentPage} onChange={(event) => handleChangePage(event)} />}
     </>
     )
     );

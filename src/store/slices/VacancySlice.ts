@@ -41,7 +41,9 @@ export const fetchVacancy = createAsyncThunk(
 
             // Получаем текущее состояние
             const state = getState() as { vacancy: typeof initialState };
-            const { city, searchValue } = state.vacancy;
+            const { city, searchValue, filterCards } = state.vacancy;
+            const searchText = filterCards.join(' ');
+
 
             // Формируем URL
             const params = new URLSearchParams({
@@ -59,13 +61,23 @@ export const fetchVacancy = createAsyncThunk(
 
 
             // Добавляем поиск если есть
-            if (searchValue?.trim()) {
-                params.append('text', searchValue.trim());
+            if (searchValue?.trim() || searchText?.trim()) {
+                if (searchText?.trim()) {
+                    const combinedText = `${searchValue.trim()} ${searchText}`.trim();
+                    params.append('search_field', 'description');
+                    params.append('text', combinedText);
+                }else{
+                    params.append('text', searchValue.trim());
+                }
+
             }
+
+
 
             const response = await fetch(
                 `https://api.hh.ru/vacancies?${params.toString()}`
             );
+            console.log(response);
 
             if (!response.ok) {
                 throw new Error('Ошибка загрузки');
@@ -98,7 +110,7 @@ const initialState: {
     error: string | null;
     filterCards: string[];
     searchValue: string;
-    filteredVacancies: vacancy[];
+    skillPointValue: string;
     searchMessage: string;
     aboutMe: boolean;
     currentPage: number;
@@ -110,9 +122,9 @@ const initialState: {
     vacancies: [],
     loading: true,
     error: null,
-    filterCards: ['JavaScript','React','Redux','ReduxToolkit','Nextjs'],
+    filterCards: ['JavaScript','React','Redux'],
     searchValue: '',
-    filteredVacancies: [],
+    skillPointValue: '',
     searchMessage: '',
     aboutMe: false,
     currentPage: 1,
@@ -132,8 +144,16 @@ const VacancySlice = createSlice({
         },
 
         addSkill: (state, action: PayloadAction<string>) => {
-            state.filterCards.push(action.payload);
-            state.searchValue = '';
+
+            const filterCardsLowerCase = state.filterCards.map(card => card.toLowerCase())
+
+            if(!filterCardsLowerCase.includes(action.payload.toLowerCase()) ) {
+                state.filterCards.push(action.payload);
+            }else{
+                alert('Такой навык уже существует')
+            }
+
+            state.skillPointValue = '';
         },
 
         deleteSkill: (state, action: PayloadAction<string>) => {
@@ -154,13 +174,16 @@ const VacancySlice = createSlice({
             if(action.payload === 'Все города') {
                 state.city = ''
             }
-                state.currentPage = 1; // Сбрасываем на первую страницу
+                state.currentPage = 1;
 
         },
 
         setupSearchValue: (state, action: PayloadAction<string>) => {
             state.searchValue = action.payload.trim();
         },
+        setSkillValue: (state, action: PayloadAction<string>) => {
+            state.skillPointValue = action.payload;
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -171,7 +194,6 @@ const VacancySlice = createSlice({
             .addCase(fetchVacancy.fulfilled, (state, action) => {
                 state.loading = false;
                 state.vacancies = action.payload.items;
-                state.filteredVacancies = action.payload.items;
                 state.currentPage = action.payload.page;
                 state.totalPages = action.payload.pages;
                 state.totalFound = action.payload.found;
@@ -191,6 +213,7 @@ export const {
     deleteSkill,
     addSkill,
     changePage,
+    setSkillValue
 } = VacancySlice.actions;
 
 export default VacancySlice.reducer;

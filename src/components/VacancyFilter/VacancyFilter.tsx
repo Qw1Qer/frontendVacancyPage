@@ -1,15 +1,20 @@
 import './VacancyFilter.css'
 import FilterCard from "../FilterCard/FilterCard.tsx";
 import {useAppDispatch, useAppSelector} from "../../hooks/reducer.ts";
-import {addSkill, deleteSkill, searchCityValue, setupSearchValue} from "../../store/slices/VacancySlice.ts";
+import {
+    addSkill,
+    deleteSkill,
+    searchCityValue,
+    setSkillValue,
+} from "../../store/slices/VacancySlice.ts";
 import * as React from "react";
 
 const VacancyFilter = () => {
 
     const dispatch = useAppDispatch();
     const filterCards = useAppSelector(state => state.vacancy.filterCards);
-    const skill = useAppSelector(state => state.vacancy.searchValue)
     const vacancyCity = useAppSelector(state => state.vacancy.cities)
+    const skillValue = useAppSelector(state => state.vacancy.skillPointValue)
 
     const cityValues = (event: React.ChangeEvent<HTMLSelectElement> ) =>
     {
@@ -21,13 +26,13 @@ const VacancyFilter = () => {
     }
 
     const handleSetupValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(setupSearchValue(event.currentTarget.value));
+        dispatch(setSkillValue(event.currentTarget.value));
 
     }
 
     const handleAddSkill = () => {
-        if (skill.trim()) {
-            dispatch(addSkill(skill));
+        if (skillValue.trim()) {
+            dispatch(addSkill(skillValue));
         }
     }
 
@@ -37,7 +42,7 @@ const VacancyFilter = () => {
                 <span className='VacancyFilter__Skills--text'>Ключевые навыки</span>
                 <div className='VacancyFilter__Skills--form'>
                 <input className='VacancyFilter__Skills--input' placeholder=' Навык' onChange={handleSetupValue}/>
-                <button className={`VacancyFilter__Skills-button--${Boolean(skill)}`} onClick={handleAddSkill}>+</button>
+                <button className={`VacancyFilter__Skills-button--${Boolean(skillValue)}`} onClick={handleAddSkill}>+</button>
                 </div>
                 <div className='VacancyFilter__skillList'>
                     {filterCards.map((item: string) => (
