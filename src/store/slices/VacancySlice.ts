@@ -39,13 +39,11 @@ export const fetchVacancy = createAsyncThunk(
         try {
             const apiPage = page - 1;
 
-            // Получаем текущее состояние
             const state = getState() as { vacancy: typeof initialState };
-            const { city, searchValue, filterCards } = state.vacancy;
-            const searchText = filterCards.join(' ');
+            const { city, searchValue, skillsList } = state.vacancy;
+            const searchText = skillsList.join(' ');
 
 
-            // Формируем URL
             const params = new URLSearchParams({
                 industry: '7',
                 professional_role: '96',
@@ -54,13 +52,10 @@ export const fetchVacancy = createAsyncThunk(
             });
 
 
-            // Добавляем город если есть
             if(city) {
                 params.append('area', city);
             }
 
-
-            // Добавляем поиск если есть
             if (searchValue?.trim() || searchText?.trim()) {
                 if (searchText?.trim()) {
                     const combinedText = `${searchValue.trim()} ${searchText}`.trim();
@@ -71,8 +66,6 @@ export const fetchVacancy = createAsyncThunk(
                 }
 
             }
-
-
 
             const response = await fetch(
                 `https://api.hh.ru/vacancies?${params.toString()}`
@@ -85,15 +78,13 @@ export const fetchVacancy = createAsyncThunk(
 
             const data = await response.json();
 
-            // Рассчитываем количество страниц
             const totalAvailable = Math.min(data.found, 2000);
-            const totalPages = Math.ceil(totalAvailable / 100);
+            const totalPages = Math.ceil(totalAvailable / 10);
 
             return {
                 items: data.items || [],
                 page: page,
-                pages: totalPages,
-                found: data.found
+                totalPages: totalPages,
             };
         } catch (error: any) {
             return rejectWithValue(error.message);
@@ -108,7 +99,7 @@ const initialState: {
     vacancies: vacancy[];
     loading: boolean;
     error: string | null;
-    filterCards: string[];
+    skillsList: string[];
     searchValue: string;
     skillPointValue: string;
     searchMessage: string;
@@ -117,21 +108,21 @@ const initialState: {
     totalPages: number;
     cities: string[];
     city: string;
-    totalFound: number;
+
 } = {
     vacancies: [],
     loading: true,
     error: null,
-    filterCards: ['JavaScript','React','Redux'],
+    skillsList: ['JavaScript','React','Redux'],
     searchValue: '',
     skillPointValue: '',
     searchMessage: '',
     aboutMe: false,
     currentPage: 1,
+    totalPages: 0,
     cities: ['Все города','Москва','Санкт-Петербург'],
     city: '',
-    totalPages: 10,
-    totalFound: 0
+
 };
 
 const VacancySlice = createSlice({
@@ -139,25 +130,29 @@ const VacancySlice = createSlice({
     initialState,
     reducers: {
 
+        resetPage: (state) => {
+            state.currentPage = 1
+        },
+
         changePage: (state, action: PayloadAction<number>) => {
             state.currentPage = action.payload;
         },
 
         addSkill: (state, action: PayloadAction<string>) => {
 
-            const filterCardsLowerCase = state.filterCards.map(card => card.toLowerCase())
+            const filterCardsLowerCase = state.skillsList.map(card => card.toLowerCase())
 
             if(!filterCardsLowerCase.includes(action.payload.toLowerCase()) ) {
-                state.filterCards.push(action.payload);
+                state.skillsList.push(action.payload);
             }else{
-                alert('Такой навык уже существует')
+                alert('Данный навык уже добавлен!')
             }
 
             state.skillPointValue = '';
         },
 
         deleteSkill: (state, action: PayloadAction<string>) => {
-            state.filterCards = state.filterCards.filter(card => card !== action.payload);
+            state.skillsList = state.skillsList.filter(card => card !== action.payload);
         },
 
         aboutMeChanged: (state, action: PayloadAction<boolean>) => {
@@ -195,8 +190,7 @@ const VacancySlice = createSlice({
                 state.loading = false;
                 state.vacancies = action.payload.items;
                 state.currentPage = action.payload.page;
-                state.totalPages = action.payload.pages;
-                state.totalFound = action.payload.found;
+                state.totalPages = action.payload.totalPages
             })
 
             .addCase(fetchVacancy.rejected, (state, action) => {
@@ -213,7 +207,8 @@ export const {
     deleteSkill,
     addSkill,
     changePage,
-    setSkillValue
+    setSkillValue,
+    resetPage
 } = VacancySlice.actions;
 
 export default VacancySlice.reducer;

@@ -3,15 +3,22 @@ import './VacancyCard.css'
 
 interface VacancyCardProps {
     items?: string;
-    fork?: {     from: number;     to: number;     currency: string;     gross: boolean; } | null;
+    fork?: {
+        from: number;
+        to: number;
+        currency: string;
+        gross: boolean;
+    } | null;
     experience?: string | null;
     company?: string | null;
-    workFormat: [{ id: string; name: string; }];
-    city: string | null;
+    workFormat: { id: string; name: string; }[];
+    city?: string | null;
     ref: string
 }
 
 const VacancyCard = ({items,fork,experience,company, workFormat,city,ref}: VacancyCardProps) => {
+
+    const cardFork = fork?.from ?`${fork?.from} - ${fork?.to}` :  fork?.to
 
 
     return (
@@ -23,7 +30,7 @@ const VacancyCard = ({items,fork,experience,company, workFormat,city,ref}: Vacan
                 <div className='VacancyCard__info__name'>
             <div className='VacancyCard__name'>{items} </div>
                 <div className='VacancyCard__salaryAndExperience'>
-                    {fork ? <div className='VacancyCard__fork'>{fork?.from ?`${fork?.from} -` : ``} {fork?.to} {fork.currency}</div> : null}
+                    <div className='VacancyCard__fork'>{fork ? `${cardFork} ${fork?.currency}` : 'Не указано'}</div>
                     <div className='VacancyCard__experience'>{experience}</div>
                 </div>
                 </div>

@@ -17,23 +17,25 @@ const VacancyList = () => {
     const searchMessage = useAppSelector(state => state.vacancy.searchMessage)
     const aboutMe = useAppSelector(state => state.vacancy.aboutMe)
     const currentPage = useAppSelector(state => state.vacancy.currentPage)
-    const totalPage = useAppSelector(state => state.vacancy.totalPages)
     const city = useAppSelector(state => state.vacancy.city)
     const searchValue = useAppSelector(state => state.vacancy.searchValue)
     const error = useAppSelector(state => state.vacancy.error)
     const loading = useAppSelector(state => state.vacancy.loading)
-    const skillArray = useAppSelector(state => state.vacancy.filterCards)
+    const skillArray = useAppSelector(state => state.vacancy.skillsList)
+    const totalPages = useAppSelector(state => state.vacancy.totalPages)
 
 
-
-    // Изменение страницы
     const handleChangePage = (page: number) => {
         dispatch(changePage(page))
     }
 
     useEffect(() => {
         dispatch(fetchVacancy(currentPage))
-    },[dispatch,currentPage,city, searchValue,skillArray ])
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    },[dispatch,currentPage,city, searchValue,skillArray])
 
 
     return (aboutMe ?
@@ -54,30 +56,32 @@ const VacancyList = () => {
                 :  (<>
                         <div className="VacancyList">
                             <VacancySearch />
-            <div className="VacancyList__cardList">
-            <VacancyFilter />
-                <div className='VacancyCardList'>
-            {vacancies.length > 0 ? vacancies?.map((vacancy:any ) => (
-                <VacancyCard
-                    key={vacancy.id}
-                    items={vacancy.name}
-                    fork={vacancy.salary ? vacancy.salary : null}
-                    experience={vacancy.experience.name}
-                    company={vacancy.employer.name}
-                    workFormat={vacancy.work_format}
-                    city={vacancy.area.name}
-                    ref={vacancy.alternate_url}
-                />
-            )): <div className='VacancyFilter__message'>
-                {searchMessage}
-            </div>}
-                </div>
-            </div>
-        </div>
-                        {loading || vacancies.length === 0 ? null : <Pagination  total={totalPage} value={currentPage} onChange={(event) => handleChangePage(event)} />}
-    </>
-    )
-    );
-};
+                        <div className="VacancyList__cardList">
+                            <VacancyFilter />
+                        <div className='VacancyCardList'>
+                        {vacancies.length > 0 ? vacancies?.map((vacancy:any ) => (
+                        <VacancyCard
+                            key={vacancy.id}
+                            items={vacancy.name}
+                            fork={vacancy.salary ? vacancy.salary : null}
+                            experience={vacancy.experience.name}
+                            company={vacancy.employer.name}
+                            workFormat={vacancy.work_format}
+                            city={vacancy.area.name}
+                            ref={vacancy.alternate_url}
+                        />
+                        )): <div className='VacancyFilter__message'>
+                            {searchMessage}
+                            </div>}
+                            </div>
+                        </div>
+                    </div>
+                            {loading
+                            || vacancies.length === 0 ? null
+                                : <Pagination withEdges  total={totalPages} value={currentPage} onChange={(event) => handleChangePage(event)} />}
+            </>
+            )
+        );
+    };
 
 export default VacancyList;

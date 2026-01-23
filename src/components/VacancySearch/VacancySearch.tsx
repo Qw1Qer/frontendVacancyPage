@@ -1,6 +1,6 @@
 import './VacancySearch.css'
 import {useAppDispatch} from "../../hooks/reducer.ts";
-import { setupSearchValue} from "../../store/slices/VacancySlice.ts";
+import {resetPage, setupSearchValue} from "../../store/slices/VacancySlice.ts";
 import {useRef} from "react";
 
 
@@ -15,11 +15,10 @@ const VacancySearch = () => {
        if(inputRef.current ){
            const value = inputRef.current.value.trim()
            dispatch(setupSearchValue(value))
+           dispatch(resetPage())
        }
 
     }
-
-
 
 
     return (
