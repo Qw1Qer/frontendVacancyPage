@@ -18,7 +18,8 @@ interface VacancyCardProps {
 
 const VacancyCard = ({items,fork,experience,company, workFormat,city,ref}: VacancyCardProps) => {
 
-    const cardFork = fork?.from ?`${fork?.from} - ${fork?.to}` :  fork?.to
+    const forkTo = fork?.to ? `${fork.to}` : '' ;
+    const forkFrom = fork?.from ? forkTo ? `${fork.from} -` : `${fork.from}` : '' ;
 
 
     return (
@@ -30,7 +31,7 @@ const VacancyCard = ({items,fork,experience,company, workFormat,city,ref}: Vacan
                 <div className='VacancyCard__info__name'>
             <div className='VacancyCard__name'>{items} </div>
                 <div className='VacancyCard__salaryAndExperience'>
-                    <div className='VacancyCard__fork'>{fork ? `${cardFork} ${fork?.currency}` : 'Не указано'}</div>
+                     <div className='VacancyCard__fork'>{fork ? `${forkFrom} ${forkTo} ${fork.currency}` : 'Не указано'}</div>
                     <div className='VacancyCard__experience'>{experience}</div>
                 </div>
                 </div>
