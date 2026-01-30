@@ -1,7 +1,10 @@
 import './VacancyCard.css'
+import {Link} from "react-router-dom";
+
 
 
 interface VacancyCardProps {
+    id?: string;
     items?: string;
     fork?: {
         from: number;
@@ -11,16 +14,20 @@ interface VacancyCardProps {
     } | null;
     experience?: string | null;
     company?: string | null;
-    workFormat: { id: string; name: string; }[];
+    workFormat?: { id: string; name: string; }[];
     city?: string | null;
-    ref: string
+    ref?: string;
+    vac?: boolean
 }
 
-const VacancyCard = ({items,fork,experience,company, workFormat,city,ref}: VacancyCardProps) => {
+const VacancyCard = ({id,items,fork,experience,company, workFormat,city,ref,vac}: VacancyCardProps) => {
 
     const forkTo = fork?.to ? `${fork.to}` : '' ;
     const forkFrom = fork?.from ? forkTo ? `${fork.from} -` : `${fork.from}` : '' ;
 
+    function formatNumber(num: string): string {
+        return num.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+    }
 
     return (
 
@@ -31,7 +38,7 @@ const VacancyCard = ({items,fork,experience,company, workFormat,city,ref}: Vacan
                 <div className='VacancyCard__info__name'>
             <div className='VacancyCard__name'>{items} </div>
                 <div className='VacancyCard__salaryAndExperience'>
-                     <div className='VacancyCard__fork'>{fork ? `${forkFrom} ${forkTo} ${fork.currency}` : 'Не указано'}</div>
+                     <div className='VacancyCard__fork'>{fork ? `${formatNumber(forkFrom)} ${formatNumber(forkTo)} ${fork.currency}` : 'Не указано'}</div>
                     <div className='VacancyCard__experience'>{experience}</div>
                 </div>
                 </div>
@@ -44,8 +51,9 @@ const VacancyCard = ({items,fork,experience,company, workFormat,city,ref}: Vacan
                 </div>
                 </div>
             <div className='VacancyCard__buttons'>
-                <button>Смотреть вакансию</button>
-                <button><a style={{textDecoration: "none", color: 'inherit'}} href={ref}>Откликнутся</a></button>
+                { !vac && <Link to={`${id}`} className='VacancyCard__button'>Смотреть вакансию</Link>}
+               <a className={`VacancyCard__rel--${vac}`} href={ref} target="_blank"
+                           rel="noopener noreferrer" >{vac ? "Откликнутся на hh.ru" : "Откликнутся"}</a>
             </div>
             </div>
         </div>

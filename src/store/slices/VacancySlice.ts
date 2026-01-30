@@ -2,6 +2,7 @@ import {createSlice, createAsyncThunk, type PayloadAction} from "@reduxjs/toolki
 
 
 
+
 interface vacancy {
     id: string;
     name: string;
@@ -13,6 +14,7 @@ interface vacancy {
     };
     employer: {
         name: string;
+        url: string;
     };
     area: {
         name: string;
@@ -29,6 +31,7 @@ interface vacancy {
     ];
     snippet: {
         requirement: string;
+        responsibility: string;
     };
     alternate_url: string;
 }
@@ -70,7 +73,6 @@ export const fetchVacancy = createAsyncThunk(
             const response = await fetch(
                 `https://api.hh.ru/vacancies?${params.toString()}`
             );
-            console.log(response);
 
             if (!response.ok) {
                 throw new Error('Ошибка загрузки');
@@ -97,6 +99,7 @@ export const fetchVacancy = createAsyncThunk(
 
 const initialState: {
     vacancies: vacancy[];
+    currentVacancy: vacancy;
     loading: boolean;
     error: string | null;
     skillsList: string[];
@@ -108,12 +111,45 @@ const initialState: {
     totalPages: number;
     cities: string[];
     city: string;
+    postQuery: string | null;
 
 } = {
     vacancies: [],
+    currentVacancy: {
+        id: '',
+        name: '',
+        salary: {
+            from: 0,
+            to: 0,
+            currency: '',
+            gross: false,
+        },
+        employer: {
+            name: '',
+            url: '',
+        },
+        area: {
+            name: '',
+        },
+        experience: {
+            id: '',
+            name: '',
+        },
+        work_format: [
+            {
+                id: '',
+                name: '',
+            }
+        ],
+        snippet: {
+            requirement: '',
+            responsibility: '',
+        },
+        alternate_url: ''
+    },
     loading: true,
     error: null,
-    skillsList: ['JavaScript','React','Redux'],
+    skillsList: [],
     searchValue: '',
     skillPointValue: '',
     searchMessage: '',
@@ -122,13 +158,27 @@ const initialState: {
     totalPages: 0,
     cities: ['Все города','Москва','Санкт-Петербург'],
     city: '',
-
+    postQuery: '',
 };
 
 const VacancySlice = createSlice({
     name: "VacancySlice",
     initialState,
     reducers: {
+
+        setPostQuery: (state, action: PayloadAction<string>) => {
+            state.postQuery = action.payload;
+        },
+
+        seeVacancy: (state, action: PayloadAction<string>) => {
+            state.vacancies.forEach((vacancy) => {
+                if(vacancy.id === action.payload) {
+                    state.currentVacancy = vacancy;
+                }else {
+
+                }
+            })
+        },
 
         resetPage: (state) => {
             state.currentPage = 1
@@ -143,12 +193,15 @@ const VacancySlice = createSlice({
             const filterCardsLowerCase = state.skillsList.map(card => card.toLowerCase())
 
             if(!filterCardsLowerCase.includes(action.payload.toLowerCase()) ) {
-                state.skillsList.push(action.payload);
+                if(action.payload.trim().length <= 30) {
+                    state.skillsList.push(action.payload);
+                }else {
+                    alert('Ну это уже перебор)')
+                }
             }else{
-                alert('Данный навык уже добавлен!')
+                alert("Такой навык уже добавлен!")
             }
 
-            state.skillPointValue = '';
         },
 
         deleteSkill: (state, action: PayloadAction<string>) => {
@@ -169,7 +222,6 @@ const VacancySlice = createSlice({
             if(action.payload === 'Все города') {
                 state.city = ''
             }
-                state.currentPage = 1;
 
         },
 
@@ -208,7 +260,9 @@ export const {
     addSkill,
     changePage,
     setSkillValue,
-    resetPage
+    resetPage,
+    seeVacancy,
+    setPostQuery,
 } = VacancySlice.actions;
 
 export default VacancySlice.reducer;

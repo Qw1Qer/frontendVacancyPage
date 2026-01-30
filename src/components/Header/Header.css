@@ -21,7 +21,7 @@
 .Header__name {
     font-weight: 600;
     font-size: 16px;
-    font-family: SansSerif, sans-serif;
+    font-family: Open Sans, serif;
 
 }
 
@@ -29,36 +29,31 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 24px;
     cursor: pointer;
+    gap: 24px;
 
 
 }
 
-.Header_menu-aboutMe--true , .Header_menu-aboutMe--false  {
+
+.Header_menu-vacancy {
     display: flex;
+    width: 100px;
+    white-space: nowrap;
     flex-direction: row;
-    align-items: center;
+    text-decoration: none;
+    color: black;
+    opacity: 0.5;
     gap: 4px;
-
 }
 
-.Header_menu-aboutMe--false{
-    opacity: 0.5;
 
+
+.active {
+    opacity: 1;
 }
 
-.Header_menu-vacancy--true {
-    opacity: 0.5;
-    width: 110px;
-}
-.Header_menu-vacancy--false::after {
+.active::after {
     content: ' ●';
     color: #4263EB;
 }
-.Header_menu-aboutMe--true::after {
-    content: ' ●';
-    color: #4263EB;
-}
-
-

@@ -2,7 +2,7 @@
 
 
 .VacancyList {
-    margin-top: 20px;
+    padding-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,10 +20,6 @@
 
 }
 
-.VacancyCardList {
-    background-color: #F6F6F7;
-    height: 100%;
-}
 
 .VacancyFilter__message {
     width: 600px;
@@ -34,22 +30,6 @@
     background-color: #FFFFFF;
 }
 
-.AboutMe {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 658px;
-    height: 143px;
-    background-color: #FFFFFF;
-    border-radius: 12px;
-    padding: 24px;
-    position: relative;
-    left: 30%;
-    top: 20px;
-}
-.AboutMe h2 {
-    margin-bottom: 10px;
-}
 
 /* Стили для пагинации */
 .mantine-Pagination-root {
@@ -58,6 +38,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #F6F6F7;
     gap: 10px;
 }
 
@@ -100,4 +81,32 @@
     width: 135px;
     height: 42px;
     margin-top: 40px;
+}
+
+.VacancyLoading {
+    width: 600px;
+    height: 100px;
+    text-align: center;
+    align-content: center;
+    border-radius: 12px;
+    font-size: large;
+    font-weight: bold;
+    background-color: #FFFFFF;
+}
+
+.VacancyLoading::after {
+    content: '.';
+    animation: dots 0.7s infinite ;
+}
+
+@keyframes dots {
+    0%, 20% {
+        content: '.';
+    }
+    40%  {
+        content: '..';
+    }
+    60%, 100% {
+        content: '...';
+    }
 }

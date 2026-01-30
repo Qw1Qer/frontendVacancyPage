@@ -1,4 +1,5 @@
 import './FilterCard.css'
+import Cross from '../../assets/Cross.svg'
 
 interface FilterCardProps {
     card: string;
@@ -8,7 +9,7 @@ interface FilterCardProps {
 const FilterCard = ({card,onDelete} : FilterCardProps) => {
     return (
         <div className='FilterCards'>
-            {card} <button onClick={onDelete}>✖</button>
+            {card} <button onClick={onDelete}><img src={Cross} /></button>
         </div>
     );
 };

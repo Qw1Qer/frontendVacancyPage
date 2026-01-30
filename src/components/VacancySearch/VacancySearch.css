@@ -20,10 +20,13 @@
 .VacancySearch input{
     width: 390px;
     height: 42px;
-    border: 1px solid gray ;
+    border: 1px solid #0F0F1033 ;
     border-radius: 8px;
-    background: #F6F6F7;
-    padding: 10px;
+    background-image: url("../../assets/Search.svg") ;
+    background-repeat: no-repeat;
+    background-color: #F6F6F7;
+    background-position: 14px center;
+    padding-left: 40px;
     font-size: 16px;
     font-weight: 400;
 

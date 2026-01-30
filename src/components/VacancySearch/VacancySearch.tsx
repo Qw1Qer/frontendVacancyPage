@@ -1,24 +1,44 @@
 import './VacancySearch.css'
 import {useAppDispatch} from "../../hooks/reducer.ts";
 import {resetPage, setupSearchValue} from "../../store/slices/VacancySlice.ts";
-import {useRef} from "react";
+import {useEffect, useRef} from "react";
+import {useSearchParams} from "react-router-dom";
+
 
 
 
 const VacancySearch = () => {
 
     const dispatch = useAppDispatch();
+    const [search, setSearch] = useSearchParams();
+
+
+
+    useEffect(() => {
+        const searchQuery = search.get('search') || '';
+
+        dispatch(setupSearchValue(searchQuery));
+
+    },[search,dispatch]);
 
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const handleSetupSearchValue =  () => {
-       if(inputRef.current ){
-           const value = inputRef.current.value.trim()
-           dispatch(setupSearchValue(value))
-           dispatch(resetPage())
-       }
+    const handleSetupSearchValue = () => {
+        if (inputRef.current) {
+            const value = inputRef.current.value.trim();
 
-    }
+            const newParams = new URLSearchParams(search.toString());
+
+            if (value) {
+                newParams.set('search', value);
+            } else {
+                newParams.delete('search');
+            }
+
+            setSearch(newParams, { replace: true });
+            dispatch(resetPage());
+        }
+    };
 
 
     return (
@@ -28,7 +48,7 @@ const VacancySearch = () => {
                 <span>по профессии Frontend-разработчик</span>
             </div>
             <div className="VacancySearch__input">
-            <input placeholder="⌕ Должность или название компании" ref={inputRef} />
+            <input placeholder="Должность или название компании" ref={inputRef} />
             <button onClick={handleSetupSearchValue}>Найти</button>
             </div>
         </div>

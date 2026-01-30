@@ -2,11 +2,10 @@
     background-color: #F6F6F7;
     font-size: 12px;
     border-radius: 4px;
-    width: min-content;
+    padding: 0 5px 0 5px;
     white-space: nowrap;
 }
 .FilterCards button {
     border: none;
     background: none;
-    opacity: 0.5;
 }

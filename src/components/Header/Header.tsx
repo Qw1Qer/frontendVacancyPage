@@ -1,20 +1,10 @@
 import logo from '../../assets/image2.svg'
-import person from '../../assets/Vector.svg'
+import person from '../../assets/profile.svg'
 import  './Header.css';
-import {useAppDispatch, useAppSelector} from "../../hooks/reducer.ts";
-import {aboutMeChanged} from "../../store/slices/VacancySlice.ts";
+import {NavLink} from "react-router-dom";
 
 const Header = () => {
 
-    const dispatch = useAppDispatch();
-    const forStyles = useAppSelector(state => state.vacancy.aboutMe)
-
-    const handleChange = () => {
-        dispatch(aboutMeChanged(true));
-    }
-    const handleSubmit = () => {
-        dispatch(aboutMeChanged(false));
-    }
 
     return (
         <div className="Header">
@@ -22,12 +12,12 @@ const Header = () => {
                 <img src={logo}/> <div className="Header__name">.FrontEnd</div>
             </div>
             <div className="Header_menu">
-                <div className={`Header_menu-vacancy--${forStyles}`} onClick={handleSubmit}>Вакансии FE</div>
-                <div className={`Header_menu-aboutMe--${forStyles}`} onClick={handleChange}>
+                <NavLink to='vacancies' className={`Header_menu-vacancy`} >Вакансии FE</NavLink>
+                <NavLink to='about' className="Header_menu-vacancy">
                    <img src={person}/>
                     <div className='Header_menu-aboutMe--text' >Обо мне</div>
-                </div>
-            </div>
+                </NavLink>
+        </div>
         </div>
     );
 };

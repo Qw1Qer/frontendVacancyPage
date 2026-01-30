@@ -1,14 +1,20 @@
+import "./Layout.css"
 import Header from "../Header/Header.tsx";
-import VacancyList from "../VacancyList/VacancyList.tsx";
-import './Layout.css'
+import { Outlet} from "react-router-dom";
 
 
 const Layout = () => {
+
+
     return (
-        <div className='layout'>
-            <Header />
-            <VacancyList />
-        </div>
+        <>
+            <header>
+                <Header />
+            </header>
+            <main >
+                <Outlet />
+            </main>
+        </>
     );
 };
 

@@ -22,6 +22,7 @@ const mockVacancy = {
 }
 
 const mockVacancyWithoutSalary = {
+    id: '1',
     items: 'Vue Developer',
     fork: null,
     experience: 'Нет опыта',
@@ -34,7 +35,7 @@ const mockVacancyWithoutSalary = {
 describe('VacancyCard', () => {
     // Тест 1: Рендеринг основных данных
     it('renders vacancy title and company name', () => {
-        render(<VacancyCard {...mockVacancy} />)
+        render(<VacancyCard id={''} {...mockVacancy} />)
 
         // Проверяем, что название вакансии отображается
         expect(screen.getByText('React Developer')).toBeInTheDocument()
@@ -61,20 +62,20 @@ describe('VacancyCard', () => {
 
     // Тест 4: Отображение города
     it('displays city correctly', () => {
-        render(<VacancyCard {...mockVacancy} />)
+        render(<VacancyCard id={''} {...mockVacancy} />)
         expect(screen.getByText('Москва')).toBeInTheDocument()
     })
 
     // Тест 5: Отображение формата работы
     it('displays work format correctly', () => {
-        render(<VacancyCard {...mockVacancy} />)
+        render(<VacancyCard id={''} {...mockVacancy} />)
         // Проверяем что хотя бы один из форматов отображается
         expect(screen.getByText(/Удаленно|В офисе|Гибрид/i)).toBeInTheDocument()
     })
 
     // Тест 6: Проверка ссылки "Откликнуться"
     it('has correct apply link', () => {
-        render(<VacancyCard {...mockVacancy} />)
+        render(<VacancyCard id={''} {...mockVacancy} />)
 
         const applyButton = screen.getByText('Откликнутся')
         const link = applyButton.closest('a')
@@ -85,7 +86,7 @@ describe('VacancyCard', () => {
 
     // Тест 7: Проверка кнопок
     it('has both buttons', () => {
-        render(<VacancyCard {...mockVacancy} />)
+        render(<VacancyCard id={''} {...mockVacancy} />)
 
         expect(screen.getByText('Смотреть вакансию')).toBeInTheDocument()
         expect(screen.getByText('Откликнутся')).toBeInTheDocument()

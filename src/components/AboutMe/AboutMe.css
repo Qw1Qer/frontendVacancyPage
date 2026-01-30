@@ -1,0 +1,16 @@
+.AboutMe {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 658px;
+    height: 143px;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    padding: 24px;
+    position: absolute;
+    left: 30%;
+    top: 100px;
+}
+.AboutMe h2 {
+    margin-bottom: 10px;
+}
