@@ -1,13 +1,13 @@
 
 import VacancyCard from "../VacancyCard/VacancyCard.tsx";
 import './SeeVacancy.css'
-import {useParams} from "react-router-dom";
+import { useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../hooks/reducer.ts";
 import {useEffect, useState} from "react";
 import {seeVacancy} from "../../store/slices/VacancySlice.ts";
 
 const SeeVacancy = () => {
-    const { id } = useParams();
+    const {id} = useParams();
     const dispatch = useAppDispatch();
     const currentVacancy = useAppSelector(state => state.vacancy.currentVacancy);
     const [localData, setLocalData] = useState(null);
@@ -27,7 +27,6 @@ const SeeVacancy = () => {
 
 
     const vacancyData = currentVacancy.id ? currentVacancy : localData;
-
 
     const responsibility = vacancyData?.snippet.responsibility
 

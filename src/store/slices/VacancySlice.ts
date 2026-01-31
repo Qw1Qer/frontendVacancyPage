@@ -166,7 +166,6 @@ const VacancySlice = createSlice({
     name: "VacancySlice",
     initialState,
     reducers: {
-
         seeVacancy: (state, action: PayloadAction<string>) => {
             const find = state.vacancies.find(vacancy => vacancy.id === action.payload)
              if(find) {

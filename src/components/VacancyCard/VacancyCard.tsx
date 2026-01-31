@@ -51,7 +51,7 @@ const VacancyCard = ({id,items,fork,experience,company, workFormat,city,ref,vac}
                 </div>
                 </div>
             <div className='VacancyCard__buttons'>
-                { !vac && <Link to={`${id}`} className='VacancyCard__button'>Смотреть вакансию</Link>}
+                { !vac && <Link to={`${id}`} onClick={() => {localStorage.clear()}} className='VacancyCard__button'>Смотреть вакансию</Link>}
                <a className={`VacancyCard__rel--${vac}`} href={ref} target="_blank"
                            rel="noopener noreferrer" >{vac ? "Откликнутся на hh.ru" : "Откликнутся"}</a>
             </div>
