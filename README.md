@@ -1,1 +1,1 @@
-page: https://qw1qer.github.io/frontendVacancyPage/#/
+page: https://qw1qer.github.io/frontendVacancyPage/#/vacancies
