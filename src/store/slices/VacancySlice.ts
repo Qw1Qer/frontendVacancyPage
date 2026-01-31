@@ -80,6 +80,7 @@ export const fetchVacancy = createAsyncThunk(
 
             const data = await response.json();
 
+
             const totalAvailable = Math.min(data.found, 2000);
             const totalPages = Math.ceil(totalAvailable / 10);
 
@@ -166,18 +167,12 @@ const VacancySlice = createSlice({
     initialState,
     reducers: {
 
-        setPostQuery: (state, action: PayloadAction<string>) => {
-            state.postQuery = action.payload;
-        },
-
         seeVacancy: (state, action: PayloadAction<string>) => {
-            state.vacancies.forEach((vacancy) => {
-                if(vacancy.id === action.payload) {
-                    state.currentVacancy = vacancy;
-                }else {
-
-                }
-            })
+            const find = state.vacancies.find(vacancy => vacancy.id === action.payload)
+             if(find) {
+                 state.currentVacancy = find;
+                 localStorage.setItem(`vacancies/${action.payload}`, JSON.stringify(find));
+             }
         },
 
         resetPage: (state) => {
@@ -208,9 +203,6 @@ const VacancySlice = createSlice({
             state.skillsList = state.skillsList.filter(card => card !== action.payload);
         },
 
-        aboutMeChanged: (state, action: PayloadAction<boolean>) => {
-            state.aboutMe = action.payload;
-        },
 
         searchCityValue: (state, action: PayloadAction<string>) => {
             if (action.payload === 'Москва') {
@@ -255,14 +247,12 @@ const VacancySlice = createSlice({
 export const {
     setupSearchValue,
     searchCityValue,
-    aboutMeChanged,
     deleteSkill,
     addSkill,
     changePage,
     setSkillValue,
     resetPage,
     seeVacancy,
-    setPostQuery,
 } = VacancySlice.actions;
 
 export default VacancySlice.reducer;

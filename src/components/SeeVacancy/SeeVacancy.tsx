@@ -1,55 +1,52 @@
 
 import VacancyCard from "../VacancyCard/VacancyCard.tsx";
 import './SeeVacancy.css'
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../hooks/reducer.ts";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {seeVacancy} from "../../store/slices/VacancySlice.ts";
 
 const SeeVacancy = () => {
-    const {id} = useParams();
-    const navigate = useNavigate();
+    const { id } = useParams();
     const dispatch = useAppDispatch();
-    const currentVacancy = useAppSelector(state => state.vacancy.currentVacancy)
+    const currentVacancy = useAppSelector(state => state.vacancy.currentVacancy);
+    const [localData, setLocalData] = useState(null);
+
 
     useEffect(() => {
         if (id) {
+            const saved = localStorage.getItem(`vacancies/${id}`);
+            if (saved) {
+                setLocalData(JSON.parse(saved));
+            }
+
             dispatch(seeVacancy(id));
+
         }
     }, [id, dispatch]);
 
-    useEffect(() => {
 
-        const timer = setTimeout(() => {
-
-            if (!currentVacancy.id) {
-                navigate('/vacancies', { replace: true });
-            }
-        }, 0);
-
-        return () => clearTimeout(timer);
-    }, [id, currentVacancy.id, navigate]);
+    const vacancyData = currentVacancy.id ? currentVacancy : localData;
 
 
-
-    const responsibility = currentVacancy.snippet.responsibility
+    const responsibility = vacancyData?.snippet.responsibility
 
     return (
         <div className='See'>
             <VacancyCard
-                id={currentVacancy.id}
-                items={currentVacancy.name}
-                fork={currentVacancy.salary ? currentVacancy.salary : null}
-                experience={currentVacancy.experience.name}
-                company={currentVacancy.employer.name}
-                workFormat={currentVacancy.work_format}
-                city={currentVacancy.area.name}
-                ref={currentVacancy.alternate_url}
+                id={vacancyData?.id}
+                items={vacancyData?.name}
+                fork={vacancyData?.salary ? vacancyData?.salary : null}
+                experience={vacancyData?.experience.name}
+                company={vacancyData?.employer.name}
+                workFormat={vacancyData?.work_format}
+                city={vacancyData?.area.name}
+                ref={vacancyData?.alternate_url}
                 vac={true}
             />
             <div className='SeeVacancyCard'>
                 <h3>Требования :</h3>
-                {currentVacancy.snippet.requirement.replace(/<\/?[^>]+(>|$)/g, '')}
+                {vacancyData?.snippet.requirement.replace(/<\/?[^>]+(>|$)/g, '')}
 
 
                 {responsibility && (

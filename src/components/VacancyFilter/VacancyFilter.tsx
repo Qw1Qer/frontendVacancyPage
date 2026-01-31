@@ -97,12 +97,16 @@ const VacancyFilter = () => {
                 <select
                     className='VacancyFilter__City--select'
                     id="mySelect"
+                    value={search.get('city') || ''}
                     onChange={cityValues}
                 >
-                    {Array.from(vacancyCity).map((item:string ) => (
-                        <option key={item}>{item}</option>
+                    {Array.from(vacancyCity).map((item: string) => (
+                        <option key={item} value={item}>
+                            {item}
+                        </option>
                     ))}
                 </select>
+
             </div>
         </div>
     );
