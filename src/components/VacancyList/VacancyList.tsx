@@ -66,7 +66,7 @@ const VacancyList = () => {
                                 </Tabs.List>
                             </Tabs>
 
-                            <Outlet/>
+                            {loading ? <div className='VacancyLoading'>Идет загрузка</div> : <Outlet/>}
 
                         </div>
                     </div>
