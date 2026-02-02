@@ -2,7 +2,8 @@
 @font-face {
     font-family: 'Open Sans';
     src: url('./assets/fonts/OpenSans-Regular.ttf') format('woff2'),
-    url('./assets/fonts/OpenSans-Regular.ttf') format('woff');
+    url('./assets/fonts/OpenSans-Regular.ttf') format('woff'),
+    url('./assets/fonts/OpenSans-Medium.ttf') format('woff');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -18,8 +19,11 @@
 
 }
 
-html {
+main, html {
     background-color: #F6F6F7;
 }
 
 
+[data-mantine-color-scheme='light'] .m_89d60db1 {
+    --tab-border-color: none !important;
+}

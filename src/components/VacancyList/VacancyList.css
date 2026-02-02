@@ -42,46 +42,7 @@
     gap: 10px;
 }
 
-.Error__Script {
-    width: 707px;
-    height: 500px;
-    border-radius: 10px;
-    background-color: #FFFFFF;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-left: 30px;
-    left: 400px;
-    top: 60px;
-    gap: 10px;
-}
 
-.Error__Script img {
-    width: 640px;
-    height: 336px;
-    border-radius: 10px;
-}
-
-.Error__Script h1 {
-    width: 508px;
-    line-height: 130%;
-}
-
-.Error__Script div {
-    display: flex;
-    flex-direction: row;
-}
-
-.Error__Script div button {
-    border: none;
-    background-color: #4263EB;
-    border-radius: 8px;
-    color: #FFFFFF;
-    width: 135px;
-    height: 42px;
-    margin-top: 40px;
-}
 
 .VacancyLoading {
     width: 600px;
@@ -109,4 +70,9 @@
     60%, 100% {
         content: '...';
     }
+}
+.VacancyCardList {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }

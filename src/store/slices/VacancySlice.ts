@@ -106,7 +106,6 @@ const initialState: {
     skillsList: string[];
     searchValue: string;
     skillPointValue: string;
-    searchMessage: string;
     aboutMe: boolean;
     currentPage: number;
     totalPages: number;
@@ -153,7 +152,6 @@ const initialState: {
     skillsList: [],
     searchValue: '',
     skillPointValue: '',
-    searchMessage: '',
     aboutMe: false,
     currentPage: 1,
     totalPages: 0,
@@ -213,7 +211,7 @@ const VacancySlice = createSlice({
             if(action.payload === 'Все города') {
                 state.city = ''
             }
-
+            state.currentPage = 1
         },
 
         setupSearchValue: (state, action: PayloadAction<string>) => {
