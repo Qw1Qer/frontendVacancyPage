@@ -37,7 +37,7 @@ const VacancyFilter = () => {
         if (search.toString() !== newSearch.toString()) {
             setSearch(newSearch, { replace: true });
         }
-    }, [skillsList, setSearch, search]);
+    }, [skillsList]);
 
 
 
